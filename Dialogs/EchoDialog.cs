@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 using Microsoft.Bot.Connector;
 using Microsoft.Bot.Builder.Dialogs;
 using System.Net.Http;
-
+using SimpleEchoBot.Logic;
 
 namespace Microsoft.Bot.Sample.SimpleEchoBot
 {
@@ -12,17 +12,35 @@ namespace Microsoft.Bot.Sample.SimpleEchoBot
     public class EchoDialog : IDialog<object>
     {
         protected int count = 1;
+        HomeAssistantService _homeAssistant;
 
         public async Task StartAsync(IDialogContext context)
         {
             context.Wait(MessageReceivedAsync);
+
+            if (_homeAssistant == null)
+            {
+                _homeAssistant = new HomeAssistantService();
+            }
         }
 
         public async Task MessageReceivedAsync(IDialogContext context, IAwaitable<IMessageActivity> argument)
         {
             var message = await argument;
 
-            if (message.Text == "reset")
+            string text = message.Text.ToLower();
+
+            if (text == "get state")
+            {
+                string result = await _homeAssistant.GetStates();
+                await context.PostAsync($"states: {result}");
+                context.Wait(MessageReceivedAsync);
+            }
+            else if (text == "turn on")
+            {
+                _homeAssistant.TurnOnAllLight();
+            }
+            else if (text == "reset")
             {
                 PromptDialog.Confirm(
                     context,
