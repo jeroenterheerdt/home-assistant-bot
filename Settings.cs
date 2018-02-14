@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace SimpleEchoBot
+namespace HomeAssistantBot
 {
     public partial class Settings
     {
@@ -26,7 +26,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace SimpleEchoBot
+namespace HomeAssistantBot
 {
     public partial class Settings
     {

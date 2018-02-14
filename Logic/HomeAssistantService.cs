@@ -11,7 +11,7 @@ using System.Net;
 using System.IO;
 using System.Web.Script.Serialization;
 
-namespace SimpleEchoBot.Logic
+namespace HomeAssistantBot.Logic
 {
     [Serializable()]
     public class HomeAssistantService
