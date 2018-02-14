@@ -1,17 +1,17 @@
 ﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
-using System.Linq;
+using System.Diagnostics;
 using System.Net.Http;
 using System.Threading.Tasks;
-using System.Web;
 
 namespace SimpleEchoBot.Logic
 {
     [Serializable()]
     public class HomeAssistantService
     {
-        private string _baseUrl = "http://localhost:8123/api/";
+        
         public HomeAssistantService()
         {
 
@@ -22,9 +22,31 @@ namespace SimpleEchoBot.Logic
             
         }
 
+        internal async Task<List<string>> GetEntities()
+        {
+            var statesAsJson = await GetStates();
+
+            //var arrayOfDeviceStates = JsonConvert.DeserializeObject(statesAsJson);
+            JArray deviceStates = JArray.Parse(statesAsJson);
+
+            foreach(var deviceState in deviceStates)
+            {
+                //Debug.WriteLine(deviceState.ToString());
+                //string entity_id = deviceState["entity_id"].Value<string>();
+                //dynamic attributes = deviceState["attributes"];
+                //var friendly_name = attributes.friendly_name;
+                ////?.Values()["friendly_name"]?.Value<string>();
+                //Debug.WriteLine($"entity_id:{entity_id}\n");
+
+            }
+
+            return null;
+
+        }
+
         internal async Task<string> GetStates()
         {
-            string url = _baseUrl + "states";
+            string url = Settings.Instance.BaseApiUrl + "states";
             string resultAsText = await Get(url);
             return resultAsText;
         }
@@ -34,7 +56,7 @@ namespace SimpleEchoBot.Logic
 
         internal async Task<dynamic> GetServices()
         {
-            string url = _baseUrl + "services";
+            string url = Settings.Instance.BaseApiUrl + "services";
             string resultAsJson = await Get(url);
 
             var dynamicObject= JsonConvert.DeserializeObject(resultAsJson);

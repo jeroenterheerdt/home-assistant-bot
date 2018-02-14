@@ -18,7 +18,7 @@ namespace Microsoft.Bot.Sample.SimpleEchoBot
         /// <param name="activity"></param>
         [ResponseType(typeof(void))]
         public virtual async Task<HttpResponseMessage> Post([FromBody] Activity activity)
-        {
+            {
             // check if activity is of type message
             if (activity != null && activity.GetActivityType() == ActivityTypes.Message)
             {

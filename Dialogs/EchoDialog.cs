@@ -44,6 +44,11 @@ namespace Microsoft.Bot.Sample.SimpleEchoBot
                 var services = await _homeAssistant.GetServices();
                 responseText = "Get services was successful";   
             }
+            else if (text == "get entities")
+            {
+                var services = await _homeAssistant.GetEntities();
+                responseText = "Get services was successful";
+            }
             else if (text == "turn on")
             {
                 _homeAssistant.TurnOnAllLight();

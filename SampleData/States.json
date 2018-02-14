@@ -1,0 +1,977 @@
+﻿[
+  {
+    "attributes": {
+      "friendly_name": "",
+      "hidden": true,
+      "icon": "mdi:home",
+      "latitude": 51.4964,
+      "longitude": -0.1224,
+      "radius": 100
+    },
+    "entity_id": "zone.home",
+    "last_changed": "2018-02-13T15:16:10.783960+00:00",
+    "last_updated": "2018-02-13T15:16:10.783960+00:00",
+    "state": "zoning"
+  },
+  {
+    "attributes": {
+      "message": "Here are some resources to get started:\n\n - [Configuring Home Assistant](https://home-assistant.io/getting-started/configuration/)\n - [Available components](https://home-assistant.io/components/)\n - [Troubleshooting your configuration](https://home-assistant.io/docs/configuration/troubleshooting/)\n - [Getting help](https://home-assistant.io/help/)\n\nTo not see this card popup in the future, edit your config in\n`configuration.yaml` and disable the `introduction` component.",
+      "title": "Welcome Home!"
+    },
+    "entity_id": "persistent_notification.notification",
+    "last_changed": "2018-02-13T15:16:10.792961+00:00",
+    "last_updated": "2018-02-13T15:16:10.792961+00:00",
+    "state": "notifying"
+  },
+  {
+    "attributes": {},
+    "entity_id": "a.demo_mode",
+    "last_changed": "2018-02-13T15:16:10.839481+00:00",
+    "last_updated": "2018-02-13T15:16:10.839481+00:00",
+    "state": "Enabled"
+  },
+  {
+    "attributes": {
+      "azimuth": 238.68,
+      "elevation": 7.2,
+      "friendly_name": "Sun",
+      "next_dawn": "2018-02-14T06:42:19+00:00",
+      "next_dusk": "2018-02-13T17:45:19+00:00",
+      "next_midnight": "2018-02-14T00:14:40+00:00",
+      "next_noon": "2018-02-14T12:14:41+00:00",
+      "next_rising": "2018-02-14T07:17:02+00:00",
+      "next_setting": "2018-02-13T17:10:30+00:00"
+    },
+    "entity_id": "sun.sun",
+    "last_changed": "2018-02-13T15:16:10.977220+00:00",
+    "last_updated": "2018-02-13T16:16:30.250251+00:00",
+    "state": "above_horizon"
+  },
+  {
+    "attributes": {
+      "friendly_name": "Router"
+    },
+    "entity_id": "weblink.router",
+    "last_changed": "2018-02-13T15:16:10.977220+00:00",
+    "last_updated": "2018-02-13T15:16:10.977220+00:00",
+    "state": "http://192.168.1.1"
+  },
+  {
+    "attributes": {
+      "friendly_name": "Notify Anne Therese is home",
+      "icon": "mdi:car"
+    },
+    "entity_id": "input_boolean.notify",
+    "last_changed": "2018-02-13T15:16:10.992845+00:00",
+    "last_updated": "2018-02-13T15:16:10.992845+00:00",
+    "state": "off"
+  },
+  {
+    "attributes": {
+      "friendly_name": "Allowed Noise",
+      "icon": "mdi:bell-ring",
+      "max": 10,
+      "min": 0,
+      "mode": "slider",
+      "step": 1,
+      "unit_of_measurement": "dB"
+    },
+    "entity_id": "input_number.noise_allowance",
+    "last_changed": "2018-02-13T15:16:10.992845+00:00",
+    "last_updated": "2018-02-13T15:16:10.992845+00:00",
+    "state": "0.0"
+  },
+  {
+    "attributes": {
+      "friendly_name": "Cook today",
+      "icon": "mdi:panda",
+      "options": [
+        "Paulus",
+        "Anne Therese"
+      ]
+    },
+    "entity_id": "input_select.who_cooks",
+    "last_changed": "2018-02-13T15:16:10.992845+00:00",
+    "last_updated": "2018-02-13T15:16:10.992845+00:00",
+    "state": "Anne Therese"
+  },
+  {
+    "attributes": {
+      "options": [
+        "Visitors",
+        "Visitors with kids",
+        "Home Alone"
+      ]
+    },
+    "entity_id": "input_select.living_room_preset",
+    "last_changed": "2018-02-13T15:16:10.992845+00:00",
+    "last_updated": "2018-02-13T15:16:10.992845+00:00",
+    "state": "Visitors"
+  },
+  {
+    "attributes": {
+      "changed_by": null,
+      "code_format": ".+",
+      "friendly_name": "Alarm"
+    },
+    "entity_id": "alarm_control_panel.alarm",
+    "last_changed": "2018-02-13T15:16:11.008471+00:00",
+    "last_updated": "2018-02-13T15:16:11.008471+00:00",
+    "state": "disarmed"
+  },
+  {
+    "attributes": {
+      "current_temperature": 23,
+      "fan_list": [
+        "On Low",
+        "On High",
+        "Auto Low",
+        "Auto High",
+        "Off"
+      ],
+      "fan_mode": "Auto Low",
+      "friendly_name": "Ecobee",
+      "hold_mode": "home",
+      "max_temp": 35,
+      "min_temp": 7,
+      "operation_list": [
+        "heat",
+        "cool",
+        "auto",
+        "off"
+      ],
+      "operation_mode": "auto",
+      "supported_features": 1014,
+      "swing_list": [
+        "Auto",
+        "1",
+        "2",
+        "3",
+        "Off"
+      ],
+      "swing_mode": "Auto",
+      "target_temp_high": 24,
+      "target_temp_low": 21,
+      "temperature": null,
+      "unit_of_measurement": "°C"
+    },
+    "entity_id": "climate.ecobee",
+    "last_changed": "2018-02-13T15:16:11.008471+00:00",
+    "last_updated": "2018-02-13T15:16:11.008471+00:00",
+    "state": "auto"
+  },
+  {
+    "attributes": {
+      "aux_heat": "off",
+      "away_mode": "on",
+      "current_humidity": 54,
+      "current_temperature": 22,
+      "fan_list": [
+        "On Low",
+        "On High",
+        "Auto Low",
+        "Auto High",
+        "Off"
+      ],
+      "fan_mode": "On High",
+      "friendly_name": "Hvac",
+      "humidity": 67,
+      "max_humidity": 99,
+      "max_temp": 35,
+      "min_humidity": 30,
+      "min_temp": 7,
+      "operation_list": [
+        "heat",
+        "cool",
+        "auto",
+        "off"
+      ],
+      "operation_mode": "cool",
+      "supported_features": 3833,
+      "swing_list": [
+        "Auto",
+        "1",
+        "2",
+        "3",
+        "Off"
+      ],
+      "swing_mode": "Off",
+      "temperature": 21,
+      "unit_of_measurement": "°C"
+    },
+    "entity_id": "climate.hvac",
+    "last_changed": "2018-02-13T15:16:11.008471+00:00",
+    "last_updated": "2018-02-13T15:16:11.008471+00:00",
+    "state": "cool"
+  },
+  {
+    "attributes": {
+      "current_temperature": 25,
+      "friendly_name": "HeatPump",
+      "max_temp": 35,
+      "min_temp": 7,
+      "operation_list": [
+        "heat",
+        "cool",
+        "auto",
+        "off"
+      ],
+      "operation_mode": "heat",
+      "supported_features": 4273,
+      "temperature": 20,
+      "unit_of_measurement": "°C"
+    },
+    "entity_id": "climate.heatpump",
+    "last_changed": "2018-02-13T15:16:11.008471+00:00",
+    "last_updated": "2018-02-13T15:16:11.008471+00:00",
+    "state": "heat"
+  },
+  {
+    "attributes": {
+      "friendly_name": "Outside Humidity",
+      "unit_of_measurement": "%"
+    },
+    "entity_id": "sensor.outside_humidity",
+    "last_changed": "2018-02-13T15:16:11.008471+00:00",
+    "last_updated": "2018-02-13T15:16:11.008471+00:00",
+    "state": "54"
+  },
+  {
+    "attributes": {},
+    "entity_id": "sensor.outside_temperature",
+    "last_changed": "2018-02-13T15:22:52.846340+00:00",
+    "last_updated": "2018-02-13T15:22:52.846340+00:00",
+    "state": "22.23"
+  },
+  {
+    "attributes": {
+      "device_class": "motion",
+      "friendly_name": "Movement Backyard"
+    },
+    "entity_id": "binary_sensor.movement_backyard",
+    "last_changed": "2018-02-13T15:16:11.024113+00:00",
+    "last_updated": "2018-02-13T15:16:11.024113+00:00",
+    "state": "on"
+  },
+  {
+    "attributes": {
+      "device_class": "moisture",
+      "friendly_name": "Basement Floor Wet"
+    },
+    "entity_id": "binary_sensor.basement_floor_wet",
+    "last_changed": "2018-02-13T15:16:11.024113+00:00",
+    "last_updated": "2018-02-13T15:16:11.024113+00:00",
+    "state": "off"
+  },
+  {
+    "attributes": {
+      "friendly_name": "DemoMailbox"
+    },
+    "entity_id": "mailbox.demomailbox",
+    "last_changed": "2018-02-13T15:16:41.255408+00:00",
+    "last_updated": "2018-02-13T15:16:41.255408+00:00",
+    "state": "10"
+  },
+  {
+    "attributes": {
+      "all_day": false,
+      "description": "",
+      "end_time": "2018-02-13 16:46:10",
+      "friendly_name": "Future Event",
+      "location": "",
+      "message": "Future Event",
+      "offset_reached": false,
+      "start_time": "2018-02-13 15:46:10"
+    },
+    "entity_id": "calendar.future_event",
+    "last_changed": "2018-02-13T15:46:27.251979+00:00",
+    "last_updated": "2018-02-13T15:46:27.251979+00:00",
+    "state": "on"
+  },
+  {
+    "attributes": {
+      "all_day": false,
+      "description": null,
+      "end_time": null,
+      "friendly_name": "Current Event",
+      "location": null,
+      "message": "",
+      "offset_reached": false,
+      "start_time": null
+    },
+    "entity_id": "calendar.current_event",
+    "last_changed": "2018-02-13T15:46:27.255978+00:00",
+    "last_updated": "2018-02-13T15:46:27.255978+00:00",
+    "state": "off"
+  },
+  {
+    "attributes": {
+      "app_name": "Netflix",
+      "entity_picture": "/api/media_player_proxy/media_player.lounge_room?token=0647435c46e8d85efbd021f54d22276a5f224636e28dc96e4fb5b6006026b04d&cache=cb9d84451faf9351",
+      "friendly_name": "Lounge room",
+      "is_volume_muted": false,
+      "media_content_id": "house-of-cards-1",
+      "media_content_type": "tvshow",
+      "media_duration": 3600,
+      "media_episode": 1,
+      "media_season": 1,
+      "media_series_title": "House of Cards",
+      "media_title": "Chapter 1",
+      "shuffle": false,
+      "source": "dvd",
+      "supported_features": 51617,
+      "volume_level": 1
+    },
+    "entity_id": "media_player.lounge_room",
+    "last_changed": "2018-02-13T15:16:11.046231+00:00",
+    "last_updated": "2018-02-13T15:16:11.046231+00:00",
+    "state": "playing"
+  },
+  {
+    "attributes": {
+      "app_name": "YouTube",
+      "entity_picture": "/api/media_player_proxy/media_player.living_room?token=817b9472756831aefc148c6c3dc344f17a32ee09f609aa2f75e1058882377d51&cache=bc2ffb49c4f67034",
+      "friendly_name": "Living Room",
+      "is_volume_muted": false,
+      "media_content_id": "eyU3bRy2x44",
+      "media_content_type": "movie",
+      "media_duration": 300,
+      "media_position": 45.053386,
+      "media_position_updated_at": "2018-02-13T15:16:10.992845+00:00",
+      "media_title": "♥♥ The Best Fireplace Video (3 hours)",
+      "shuffle": false,
+      "supported_features": 50061,
+      "volume_level": 1
+    },
+    "entity_id": "media_player.living_room",
+    "last_changed": "2018-02-13T15:16:11.061867+00:00",
+    "last_updated": "2018-02-13T15:16:11.061867+00:00",
+    "state": "playing"
+  },
+  {
+    "attributes": {
+      "app_name": "YouTube",
+      "entity_picture": "/api/media_player_proxy/media_player.bedroom?token=a597be8afcd859fbb85e8980c70750453e7b8f00140239afc7a6dab59c3d5ba1&cache=e4513ed94ec89151",
+      "friendly_name": "Bedroom",
+      "is_volume_muted": false,
+      "media_content_id": "kxopViU98Xo",
+      "media_content_type": "movie",
+      "media_duration": 360000,
+      "media_position": 54000.069022,
+      "media_position_updated_at": "2018-02-13T15:16:10.992845+00:00",
+      "media_title": "Epic sax guy 10 hours",
+      "shuffle": false,
+      "supported_features": 50061,
+      "volume_level": 1
+    },
+    "entity_id": "media_player.bedroom",
+    "last_changed": "2018-02-13T15:16:11.061867+00:00",
+    "last_updated": "2018-02-13T15:16:11.061867+00:00",
+    "state": "playing"
+  },
+  {
+    "attributes": {
+      "entity_picture": "/api/media_player_proxy/media_player.walkman?token=e32d72f6b85fc7b4c92089849974e6a992921e260f27546c3114a45d15782f26&cache=62c0c516acbc53a9",
+      "friendly_name": "Walkman",
+      "is_volume_muted": false,
+      "media_album_name": "Bounzz",
+      "media_artist": "Technohead",
+      "media_content_id": "bounzz-1",
+      "media_content_type": "music",
+      "media_duration": 213,
+      "media_title": "I Wanna Be A Hippy (Flamman & Abraxas Radio Mix)",
+      "media_track": 1,
+      "shuffle": false,
+      "supported_features": 57773,
+      "volume_level": 1
+    },
+    "entity_id": "media_player.walkman",
+    "last_changed": "2018-02-13T15:16:11.061867+00:00",
+    "last_updated": "2018-02-13T15:16:11.061867+00:00",
+    "state": "playing"
+  },
+  {
+    "attributes": {
+      "access_token": "760390883baee7844495ce8922d415f2d495a8ef1d43aa89aa566eff0198d179",
+      "entity_picture": "/api/camera_proxy/camera.demo_camera?token=760390883baee7844495ce8922d415f2d495a8ef1d43aa89aa566eff0198d179",
+      "friendly_name": "Demo camera"
+    },
+    "entity_id": "camera.demo_camera",
+    "last_changed": "2018-02-13T15:16:11.061867+00:00",
+    "last_updated": "2018-02-13T16:16:20.245844+00:00",
+    "state": "idle"
+  },
+  {
+    "attributes": {
+      "friendly_name": "Ceiling Lights",
+      "supported_features": 151
+    },
+    "entity_id": "light.ceiling_lights",
+    "last_changed": "2018-02-13T15:25:16.619122+00:00",
+    "last_updated": "2018-02-13T15:25:16.619122+00:00",
+    "state": "off"
+  },
+  {
+    "attributes": {
+      "friendly_name": "Kitchen Lights",
+      "supported_features": 151
+    },
+    "entity_id": "light.kitchen_lights",
+    "last_changed": "2018-02-13T15:25:16.623128+00:00",
+    "last_updated": "2018-02-13T15:25:16.623128+00:00",
+    "state": "off"
+  },
+  {
+    "attributes": {
+      "brightness": 180,
+      "color_temp": 380,
+      "effect": "rainbow",
+      "effect_list": [
+        "rainbow",
+        "none"
+      ],
+      "friendly_name": "Bed Light",
+      "max_mireds": 500,
+      "min_mireds": 154,
+      "rgb_color": [
+        245,
+        213,
+        0
+      ],
+      "supported_features": 151,
+      "white_value": 200,
+      "xy_color": [
+        0.5,
+        0.5
+      ]
+    },
+    "entity_id": "light.bed_light",
+    "last_changed": "2018-02-13T15:25:36.816987+00:00",
+    "last_updated": "2018-02-13T15:25:36.816987+00:00",
+    "state": "on"
+  },
+  {
+    "attributes": {
+      "friendly_name": "Front Door"
+    },
+    "entity_id": "lock.front_door",
+    "last_changed": "2018-02-13T15:16:11.093118+00:00",
+    "last_updated": "2018-02-13T15:16:11.093118+00:00",
+    "state": "locked"
+  },
+  {
+    "attributes": {
+      "friendly_name": "Kitchen Door"
+    },
+    "entity_id": "lock.kitchen_door",
+    "last_changed": "2018-02-13T15:16:11.093118+00:00",
+    "last_updated": "2018-02-13T15:16:11.093118+00:00",
+    "state": "unlocked"
+  },
+  {
+    "attributes": {
+      "assumed_state": true,
+      "current_power_w": 100,
+      "friendly_name": "Decorative Lights",
+      "today_energy_kwh": 15
+    },
+    "entity_id": "switch.decorative_lights",
+    "last_changed": "2018-02-13T15:16:11.093118+00:00",
+    "last_updated": "2018-02-13T15:16:11.093118+00:00",
+    "state": "on"
+  },
+  {
+    "attributes": {
+      "friendly_name": "AC",
+      "icon": "mdi:air-conditioner",
+      "today_energy_kwh": 15
+    },
+    "entity_id": "switch.ac",
+    "last_changed": "2018-02-13T15:16:11.093118+00:00",
+    "last_updated": "2018-02-13T15:16:11.093118+00:00",
+    "state": "off"
+  },
+  {
+    "attributes": {
+      "direction": "forward",
+      "friendly_name": "Living Room Fan",
+      "oscillating": false,
+      "speed": "off",
+      "speed_list": [
+        "off",
+        "low",
+        "medium",
+        "high"
+      ],
+      "supported_features": 7
+    },
+    "entity_id": "fan.living_room_fan",
+    "last_changed": "2018-02-13T15:16:11.093118+00:00",
+    "last_updated": "2018-02-13T15:16:11.093118+00:00",
+    "state": "off"
+  },
+  {
+    "attributes": {
+      "friendly_name": "Ceiling Fan",
+      "speed": "off",
+      "speed_list": [
+        "off",
+        "low",
+        "medium",
+        "high"
+      ],
+      "supported_features": 1
+    },
+    "entity_id": "fan.ceiling_fan",
+    "last_changed": "2018-02-13T15:16:11.093118+00:00",
+    "last_updated": "2018-02-13T15:16:11.093118+00:00",
+    "state": "off"
+  },
+  {
+    "attributes": {
+      "current_position": 10,
+      "friendly_name": "Hall Window",
+      "supported_features": 15
+    },
+    "entity_id": "cover.hall_window",
+    "last_changed": "2018-02-13T15:16:11.093118+00:00",
+    "last_updated": "2018-02-13T15:16:11.093118+00:00",
+    "state": "open"
+  },
+  {
+    "attributes": {
+      "device_class": "garage",
+      "friendly_name": "Garage Door",
+      "supported_features": 3
+    },
+    "entity_id": "cover.garage_door",
+    "last_changed": "2018-02-13T15:16:11.093118+00:00",
+    "last_updated": "2018-02-13T15:16:11.093118+00:00",
+    "state": "closed"
+  },
+  {
+    "attributes": {
+      "friendly_name": "Kitchen Window",
+      "supported_features": 11
+    },
+    "entity_id": "cover.kitchen_window",
+    "last_changed": "2018-02-13T15:16:11.093118+00:00",
+    "last_updated": "2018-02-13T15:16:11.093118+00:00",
+    "state": "closed"
+  },
+  {
+    "attributes": {
+      "current_position": 70,
+      "current_tilt_position": 50,
+      "friendly_name": "Living Room Window",
+      "supported_features": 255
+    },
+    "entity_id": "cover.living_room_window",
+    "last_changed": "2018-02-13T15:16:11.108744+00:00",
+    "last_updated": "2018-02-13T15:16:11.108744+00:00",
+    "state": "open"
+  },
+  {
+    "attributes": {
+      "battery": 53,
+      "friendly_name": "Paulus",
+      "gps_accuracy": 148,
+      "latitude": 51.501115,
+      "longitude": -0.129225,
+      "source_type": "gps"
+    },
+    "entity_id": "device_tracker.demo_paulus",
+    "last_changed": "2018-02-13T15:16:11.124383+00:00",
+    "last_updated": "2018-02-13T15:16:11.124383+00:00",
+    "state": "not_home"
+  },
+  {
+    "attributes": {
+      "battery": 57,
+      "friendly_name": "Anne Therese",
+      "gps_accuracy": 111,
+      "latitude": 51.500205,
+      "longitude": -0.117085,
+      "source_type": "gps"
+    },
+    "entity_id": "device_tracker.demo_anne_therese",
+    "last_changed": "2018-02-13T15:16:11.124383+00:00",
+    "last_updated": "2018-02-13T15:16:11.124383+00:00",
+    "state": "not_home"
+  },
+  {
+    "attributes": {
+      "battery": 53,
+      "friendly_name": "Home Boy",
+      "gps_accuracy": 20,
+      "latitude": 51.49638,
+      "longitude": -0.12237999999999999,
+      "source_type": "gps"
+    },
+    "entity_id": "device_tracker.demo_home_boy",
+    "last_changed": "2018-02-13T15:16:11.124383+00:00",
+    "last_updated": "2018-02-13T15:16:11.124383+00:00",
+    "state": "home"
+  },
+  {
+    "attributes": {
+      "auto": true,
+      "entity_id": [
+        "calendar.current_event",
+        "calendar.future_event"
+      ],
+      "friendly_name": "calendar",
+      "hidden": true,
+      "order": 0
+    },
+    "entity_id": "group.calendar",
+    "last_changed": "2018-02-13T15:16:11.124383+00:00",
+    "last_updated": "2018-02-13T15:16:11.124383+00:00",
+    "state": "on"
+  },
+  {
+    "attributes": {
+      "auto": true,
+      "entity_id": [
+        "light.bed_light",
+        "light.ceiling_lights",
+        "light.kitchen_lights"
+      ],
+      "friendly_name": "all lights",
+      "hidden": true,
+      "order": 1
+    },
+    "entity_id": "group.all_lights",
+    "last_changed": "2018-02-13T15:25:36.820006+00:00",
+    "last_updated": "2018-02-13T15:25:36.820006+00:00",
+    "state": "on"
+  },
+  {
+    "attributes": {
+      "auto": true,
+      "entity_id": [
+        "lock.front_door",
+        "lock.kitchen_door"
+      ],
+      "friendly_name": "all locks",
+      "hidden": true,
+      "order": 1
+    },
+    "entity_id": "group.all_locks",
+    "last_changed": "2018-02-13T15:16:11.162168+00:00",
+    "last_updated": "2018-02-13T15:16:11.162168+00:00",
+    "state": "locked"
+  },
+  {
+    "attributes": {
+      "assumed_state": true,
+      "auto": true,
+      "entity_id": [
+        "switch.ac",
+        "switch.decorative_lights"
+      ],
+      "friendly_name": "all switches",
+      "hidden": true,
+      "order": 1
+    },
+    "entity_id": "group.all_switches",
+    "last_changed": "2018-02-13T15:16:11.162168+00:00",
+    "last_updated": "2018-02-13T15:16:11.162168+00:00",
+    "state": "on"
+  },
+  {
+    "attributes": {
+      "auto": true,
+      "entity_id": [
+        "fan.ceiling_fan",
+        "fan.living_room_fan"
+      ],
+      "friendly_name": "all fans",
+      "hidden": true,
+      "order": 1
+    },
+    "entity_id": "group.all_fans",
+    "last_changed": "2018-02-13T15:16:11.162168+00:00",
+    "last_updated": "2018-02-13T15:16:11.162168+00:00",
+    "state": "off"
+  },
+  {
+    "attributes": {
+      "auto": true,
+      "entity_id": [
+        "cover.garage_door",
+        "cover.hall_window",
+        "cover.kitchen_window",
+        "cover.living_room_window"
+      ],
+      "friendly_name": "all covers",
+      "hidden": true,
+      "order": 1
+    },
+    "entity_id": "group.all_covers",
+    "last_changed": "2018-02-13T15:16:11.162168+00:00",
+    "last_updated": "2018-02-13T15:16:11.162168+00:00",
+    "state": "open"
+  },
+  {
+    "attributes": {
+      "auto": true,
+      "entity_id": [
+        "device_tracker.demo_paulus",
+        "device_tracker.demo_anne_therese",
+        "device_tracker.demo_home_boy"
+      ],
+      "friendly_name": "all devices",
+      "hidden": true,
+      "order": 6
+    },
+    "entity_id": "group.all_devices",
+    "last_changed": "2018-02-13T15:16:11.193422+00:00",
+    "last_updated": "2018-02-13T15:16:11.193422+00:00",
+    "state": "home"
+  },
+  {
+    "attributes": {
+      "device_class": "alpr",
+      "friendly_name": "Demo Alpr",
+      "plates": {
+        "AC3829": 98.3,
+        "BE392034": 95.5,
+        "CD02394": 93.4,
+        "DF923043": 90.8
+      },
+      "vehicles": 1
+    },
+    "entity_id": "image_processing.demo_alpr",
+    "last_changed": "2018-02-13T15:16:21.281732+00:00",
+    "last_updated": "2018-02-13T15:16:21.281732+00:00",
+    "state": "AC3829"
+  },
+  {
+    "attributes": {
+      "device_class": "face",
+      "faces": [
+        {
+          "age": 16,
+          "confidence": 98.34,
+          "entity_id": "image_processing.demo_face",
+          "gender": "male",
+          "name": "Hans"
+        },
+        {
+          "age": 28,
+          "entity_id": "image_processing.demo_face",
+          "gender": "female",
+          "name": "Helena"
+        },
+        {
+          "confidence": 62.53,
+          "name": "Luna"
+        }
+      ],
+      "friendly_name": "Demo Face",
+      "total_faces": 4
+    },
+    "entity_id": "image_processing.demo_face",
+    "last_changed": "2018-02-13T15:16:21.268210+00:00",
+    "last_updated": "2018-02-13T15:16:21.268210+00:00",
+    "state": "Hans"
+  },
+  {
+    "attributes": {
+      "message": "This is an example of a persistent notification.",
+      "title": "Example Notification"
+    },
+    "entity_id": "persistent_notification.notification_2",
+    "last_changed": "2018-02-13T15:16:11.193422+00:00",
+    "last_updated": "2018-02-13T15:16:11.193422+00:00",
+    "state": "notifying"
+  },
+  {
+    "attributes": {
+      "entity_id": [
+        "input_select.who_cooks",
+        "input_boolean.notify"
+      ],
+      "friendly_name": "Automations",
+      "order": 7
+    },
+    "entity_id": "group.automations",
+    "last_changed": "2018-02-13T15:16:11.193422+00:00",
+    "last_updated": "2018-02-13T15:16:11.193422+00:00",
+    "state": "off"
+  },
+  {
+    "attributes": {
+      "entity_id": [
+        "light.kitchen_lights",
+        "cover.kitchen_window",
+        "lock.kitchen_door"
+      ],
+      "friendly_name": "Kitchen",
+      "order": 7
+    },
+    "entity_id": "group.kitchen",
+    "last_changed": "2018-02-13T15:25:16.626122+00:00",
+    "last_updated": "2018-02-13T15:25:16.626122+00:00",
+    "state": "off"
+  },
+  {
+    "attributes": {
+      "entity_id": [
+        "group.living_room",
+        "group.kitchen",
+        "scene.romantic_lights",
+        "cover.kitchen_window",
+        "cover.living_room_window",
+        "group.doors",
+        "climate.ecobee"
+      ],
+      "friendly_name": "Downstairs",
+      "hidden": true,
+      "order": 7,
+      "view": true
+    },
+    "entity_id": "group.downstairs",
+    "last_changed": "2018-02-13T15:25:16.631125+00:00",
+    "last_updated": "2018-02-13T15:25:16.631125+00:00",
+    "state": "off"
+  },
+  {
+    "attributes": {
+      "assumed_state": true,
+      "entity_id": [
+        "light.bed_light",
+        "switch.decorative_lights",
+        "media_player.bedroom",
+        "input_number.noise_allowance"
+      ],
+      "friendly_name": "Bedroom",
+      "order": 7
+    },
+    "entity_id": "group.bedroom",
+    "last_changed": "2018-02-13T15:16:11.209037+00:00",
+    "last_updated": "2018-02-13T15:16:11.209037+00:00",
+    "state": "on"
+  },
+  {
+    "attributes": {
+      "entity_id": [
+        "light.ceiling_lights",
+        "switch.ac",
+        "input_select.living_room_preset",
+        "cover.living_room_window",
+        "media_player.living_room",
+        "scene.romantic_lights"
+      ],
+      "friendly_name": "Living Room",
+      "order": 7
+    },
+    "entity_id": "group.living_room",
+    "last_changed": "2018-02-13T15:25:16.622123+00:00",
+    "last_updated": "2018-02-13T15:25:16.622123+00:00",
+    "state": "off"
+  },
+  {
+    "attributes": {
+      "entity_id": [
+        "device_tracker.demo_anne_therese",
+        "device_tracker.demo_home_boy",
+        "device_tracker.demo_paulus"
+      ],
+      "friendly_name": "People",
+      "order": 7
+    },
+    "entity_id": "group.people",
+    "last_changed": "2018-02-13T15:16:11.209037+00:00",
+    "last_updated": "2018-02-13T15:16:11.209037+00:00",
+    "state": "home"
+  },
+  {
+    "attributes": {
+      "entity_id": [
+        "lock.front_door",
+        "lock.kitchen_door",
+        "garage_door.right_garage_door",
+        "garage_door.left_garage_door"
+      ],
+      "friendly_name": "Doors",
+      "order": 7
+    },
+    "entity_id": "group.doors",
+    "last_changed": "2018-02-13T15:16:11.209037+00:00",
+    "last_updated": "2018-02-13T15:16:11.209037+00:00",
+    "state": "locked"
+  },
+  {
+    "attributes": {
+      "entity_id": [
+        "switch.ac",
+        "switch.decorative_lights"
+      ],
+      "friendly_name": "Switch on and off"
+    },
+    "entity_id": "scene.switch_on_and_off",
+    "last_changed": "2018-02-13T15:16:11.224663+00:00",
+    "last_updated": "2018-02-13T15:16:11.224663+00:00",
+    "state": "scening"
+  },
+  {
+    "attributes": {
+      "entity_id": [
+        "light.bed_light",
+        "light.ceiling_lights"
+      ],
+      "friendly_name": "Romantic lights"
+    },
+    "entity_id": "scene.romantic_lights",
+    "last_changed": "2018-02-13T15:16:11.224663+00:00",
+    "last_updated": "2018-02-13T15:16:11.224663+00:00",
+    "state": "scening"
+  },
+  {
+    "attributes": {
+      "can_cancel": true,
+      "friendly_name": "Toggle bed_light",
+      "last_triggered": null
+    },
+    "entity_id": "script.demo",
+    "last_changed": "2018-02-13T15:16:11.224663+00:00",
+    "last_updated": "2018-02-13T15:16:11.224663+00:00",
+    "state": "off"
+  },
+  {
+    "attributes": {
+      "auto": true,
+      "entity_id": [
+        "script.demo"
+      ],
+      "friendly_name": "all scripts",
+      "hidden": true,
+      "order": 14
+    },
+    "entity_id": "group.all_scripts",
+    "last_changed": "2018-02-13T15:16:11.224663+00:00",
+    "last_updated": "2018-02-13T15:16:11.224663+00:00",
+    "state": "off"
+  },
+  {
+    "attributes": {
+      "configure_id": "104947984-1",
+      "description": "Press the button on the bridge to register Philips Hue with Home Assistant.\n\n![Description image](/static/images/config_philips_hue.jpg)",
+      "entity_picture": null,
+      "fields": [
+        {
+          "id": "username",
+          "name": "Username"
+        }
+      ],
+      "friendly_name": "Philips Hue",
+      "submit_caption": "I have pressed the button"
+    },
+    "entity_id": "configurator.philips_hue",
+    "last_changed": "2018-02-13T15:16:11.245299+00:00",
+    "last_updated": "2018-02-13T15:16:11.245299+00:00",
+    "state": "configure"
+  }
+]

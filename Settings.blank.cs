@@ -10,6 +10,9 @@ namespace SimpleEchoBot
         public Settings()
         {
             this.BotName = "Cortana, the Home Assistant";
+            this.BaseApiUrl = "http://localhost:8123/api/";
         }
+
+        
     }
 }
