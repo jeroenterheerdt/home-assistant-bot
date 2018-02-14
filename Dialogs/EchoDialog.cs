@@ -30,15 +30,24 @@ namespace Microsoft.Bot.Sample.SimpleEchoBot
 
             string text = message.Text.ToLower();
 
+            string responseText = "";
+
             if (text == "get state")
             {
                 string result = await _homeAssistant.GetStates();
-                await context.PostAsync($"states: {result}");
-                context.Wait(MessageReceivedAsync);
+
+                responseText = $"states: {result}";
+                
+            }
+            else if (text == "get services")
+            {
+                var services = await _homeAssistant.GetServices();
+                responseText = "Get services was successful";   
             }
             else if (text == "turn on")
             {
                 _homeAssistant.TurnOnAllLight();
+                responseText = "Hopefully all lights are on now";
             }
             else if (text == "reset")
             {
@@ -48,12 +57,15 @@ namespace Microsoft.Bot.Sample.SimpleEchoBot
                     "Are you sure you want to reset the count?",
                     "Didn't get that!",
                     promptStyle: PromptStyle.Auto);
+                return;
             }
             else
             {
-                await context.PostAsync($"{this.count++}: You said {message.Text}");
-                context.Wait(MessageReceivedAsync);
+                responseText = $"{this.count++}: You said {message.Text}";
             }
+
+            await context.PostAsync(responseText);
+            context.Wait(MessageReceivedAsync);
         }
 
         public async Task AfterResetAsync(IDialogContext context, IAwaitable<bool> argument)
