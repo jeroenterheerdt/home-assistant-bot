@@ -1,22 +1,27 @@
 using System;
 using System.Threading.Tasks;
-
 using Microsoft.Bot.Connector;
 using Microsoft.Bot.Builder.Dialogs;
+using Microsoft.Bot.Builder.Luis.Models;
 using System.Net.Http;
 using SimpleEchoBot.Logic;
+using Microsoft.Bot.Builder.Luis;
 
-namespace Microsoft.Bot.Sample.SimpleEchoBot
+namespace SimpleEchoBot
 {
     [Serializable]
-    public class EchoDialog : IDialog<object>
+    [LuisModel(Settings.LuisAppId,Settings.LuisAPIKey)]
+    public class EchoDialog : LuisDialog<object>
     {
         protected int count = 1;
         HomeAssistantService _homeAssistant;
 
+        string LuisModelUrl = "https://" + Settings.Instance.LuisAPIHostName + "/luis/v1/application?id=" + Settings.LuisAppId + "&subscription-key=" + Settings.LuisAPIKey;
+
         public async Task StartAsync(IDialogContext context)
         {
-            context.Wait(MessageReceivedAsync);
+            
+            //context.Wait(MessageReceivedAsync);
 
             if (_homeAssistant == null)
             {
@@ -24,7 +29,44 @@ namespace Microsoft.Bot.Sample.SimpleEchoBot
             }
         }
 
-        public async Task MessageReceivedAsync(IDialogContext context, IAwaitable<IMessageActivity> argument)
+        [LuisIntent("")]
+        [LuisIntent("None")]
+        public async Task None(IDialogContext context, LuisResult result)
+        {
+            await context.PostAsync("Hi, I am your friendly Home Assistant Bot. You can say things like 'turn on living room lights'.");
+            context.Wait(this.MessageReceived);
+        }
+
+        [LuisIntent("Turn On")]
+        public async Task TurnOn(IDialogContext context, IAwaitable<IMessageActivity> activity, LuisResult result)
+        {
+            await context.PostAsync("You reached the TURN ON intent");
+            context.Wait(this.MessageReceived);
+        }
+
+        [LuisIntent("Turn Off")]
+        public async Task TurnOff(IDialogContext context, IAwaitable<IMessageActivity> activity, LuisResult result)
+        {
+            await context.PostAsync("You reached the TURN OFF intent");
+            context.Wait(this.MessageReceived);
+        }
+
+        [LuisIntent("Get Entities")]
+        public async Task GetEntities(IDialogContext context, IAwaitable<IMessageActivity> activity, LuisResult result)
+        {
+            await context.PostAsync("You reached the GET ENTITIES intent");
+            context.Wait(this.MessageReceived);
+        }
+
+        [LuisIntent("Get State")]
+        public async Task GetState(IDialogContext context, IAwaitable<IMessageActivity> activity, LuisResult result)
+        {
+            await context.PostAsync("You reached the GET STATE intent");
+            context.Wait(this.MessageReceived);
+        }
+
+
+        /*public async Task MessageReceivedAsync(IDialogContext context, IAwaitable<IMessageActivity> argument)
         {
             var message = await argument;
 
@@ -72,7 +114,7 @@ namespace Microsoft.Bot.Sample.SimpleEchoBot
             await context.PostAsync(responseText);
             context.Wait(MessageReceivedAsync);
         }
-
+        */
         public async Task AfterResetAsync(IDialogContext context, IAwaitable<bool> argument)
         {
             var confirm = await argument;
@@ -85,7 +127,7 @@ namespace Microsoft.Bot.Sample.SimpleEchoBot
             {
                 await context.PostAsync("Did not reset count.");
             }
-            context.Wait(MessageReceivedAsync);
+            //context.Wait(MessageReceivedAsync);
         }
 
     }
