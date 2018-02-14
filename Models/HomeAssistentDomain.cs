@@ -9,7 +9,7 @@ namespace SimpleEchoBot.Models
     public class HomeAssistentDomain
     {
         public string Domain { get; internal set; }
-        public string FriendlyName { get; internal set; }
+        //public string FriendlyName { get; internal set; }
         public List<HomeAssistentDomainFeature> Features
         {
             get

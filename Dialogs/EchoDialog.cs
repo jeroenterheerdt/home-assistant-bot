@@ -14,18 +14,30 @@ namespace SimpleEchoBot
     public class EchoDialog : LuisDialog<object>
     {
         protected int count = 1;
-        HomeAssistantService _homeAssistant;
 
         string LuisModelUrl = "https://" + Settings.Instance.LuisAPIHostName + "/luis/v1/application?id=" + Settings.LuisAppId + "&subscription-key=" + Settings.LuisAPIKey;
 
-        public async Task StartAsync(IDialogContext context)
-        {
+        //public async Task StartAsync(IDialogContext context)
+        //{
             
-            //context.Wait(MessageReceivedAsync);
+        //    //context.Wait(MessageReceivedAsync);
 
-            if (_homeAssistant == null)
+        //    if (_homeAssistant == null)
+        //    {
+        //        _homeAssistant = new HomeAssistantService();
+        //    }
+        //}
+
+        private HomeAssistantService _homeAssistant;
+        private HomeAssistantService HomeAssistant
+        {
+            get
             {
-                _homeAssistant = new HomeAssistantService();
+                if (_homeAssistant == null)
+                {
+                    _homeAssistant = new HomeAssistantService();
+                }
+                return _homeAssistant;
             }
         }
 
@@ -54,6 +66,8 @@ namespace SimpleEchoBot
         [LuisIntent("Turn On")]
         public async Task TurnOn(IDialogContext context, IAwaitable<IMessageActivity> activity, LuisResult result)
         {
+            HomeAssistant.AllLightsOn();
+
             await context.PostAsync("You reached the TURN ON intent");
             context.Wait(this.MessageReceived);
         }
@@ -61,6 +75,8 @@ namespace SimpleEchoBot
         [LuisIntent("Turn Off")]
         public async Task TurnOff(IDialogContext context, IAwaitable<IMessageActivity> activity, LuisResult result)
         {
+            HomeAssistant.AllLightsOff();
+
             await context.PostAsync("You reached the TURN OFF intent");
             context.Wait(this.MessageReceived);
         }
@@ -68,7 +84,18 @@ namespace SimpleEchoBot
         [LuisIntent("Get Entities")]
         public async Task GetEntities(IDialogContext context, IAwaitable<IMessageActivity> activity, LuisResult result)
         {
-            await context.PostAsync("You reached the GET ENTITIES intent");
+            var entities = await HomeAssistant.GetDomains();
+            string responseText = "Get services was successful\n\n";
+            foreach (var entity in entities)
+            {
+                responseText += $"- {entity.Domain}\n\n";
+                foreach (var feature in entity.Features)
+                {
+                    responseText += $" \t- {feature.Name}\n\n";
+                }
+            }
+
+            await context.PostAsync(responseText);
             context.Wait(this.MessageReceived);
         }
 
