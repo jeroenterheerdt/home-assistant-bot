@@ -40,7 +40,7 @@ namespace SimpleEchoBot
         [LuisIntent("Hi")]
         public async Task Hi(IDialogContext context, LuisResult result)
         {
-            await context.PostAsync("Hi, I am your friendly Home Assistant Bot. You can say things like 'turn on living room lights'.");
+            await context.PostAsync("Hi, I am your friendly Home Assistant Bot. I can help you to manage your smart home.");
             context.Wait(this.MessageReceived);
         }
 
