@@ -185,6 +185,8 @@
     </Compile>
     <Compile Include="Logic\HomeAssistantService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Settings.blank.cs" />
+    <Compile Include="Settings.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
