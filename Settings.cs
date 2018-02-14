@@ -1,4 +1,27 @@
-﻿using System;
+﻿/**
+ * Create a class called Settings.custom.cs and paste in this code:
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+
+namespace SimpleEchoBot
+{
+    public partial class Settings
+    {
+        public const string LuisAppId = "YOUR LUIS APP ID";
+        public const string LuisAPIKey = "YOUR LUIS API KEY";
+
+        public Settings()
+        {
+            this.BotName = "YOUR BOT NAME";
+            this.BaseApiUrl = "YOUR BASE API URL";
+            this.LuisAPIHostName = "YOUR LUIS API HOST NAME";
+        }
+    }
+}*/
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -9,8 +32,8 @@ namespace SimpleEchoBot
     {
         // Sample Settings
         public string BotName { get; set; }
-
         public string BaseApiUrl { get; set; }
+        public string LuisAPIHostName { get; set; }
 
         private static Settings _settings;
         public static Settings Instance
