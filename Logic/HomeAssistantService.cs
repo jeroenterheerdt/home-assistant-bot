@@ -8,7 +8,7 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using System.Linq;
 
-namespace SimpleEchoBot.Logic
+namespace HomeAssistantBot.Logic
 {
     [Serializable()]
     public class HomeAssistantService

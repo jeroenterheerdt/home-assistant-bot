@@ -4,19 +4,22 @@ using Microsoft.Bot.Connector;
 using Microsoft.Bot.Builder.Dialogs;
 using Microsoft.Bot.Builder.Luis.Models;
 using System.Net.Http;
-using SimpleEchoBot.Logic;
+using HomeAssistantBot.Logic;
 using Microsoft.Bot.Builder.Luis;
+using System.Linq;
+using System.Collections.Generic;
 
-namespace SimpleEchoBot
+namespace HomeAssistantBot
 {
     [Serializable]
-    [LuisModel(Settings.LuisAppId,Settings.LuisAPIKey)]
-    public class EchoDialog : LuisDialog<object>
+    [LuisModel(Settings.LuisAppId, Settings.LuisAPIKey)]
+    public class MainDialog : LuisDialog<object>
     {
         protected int count = 1;
         HomeAssistantService _homeAssistant;
 
         string LuisModelUrl = "https://" + Settings.Instance.LuisAPIHostName + "/luis/v1/application?id=" + Settings.LuisAppId + "&subscription-key=" + Settings.LuisAPIKey;
+        enum EntityTypes { Room, Device};
 
         public async Task StartAsync(IDialogContext context)
         {
@@ -40,7 +43,7 @@ namespace SimpleEchoBot
         [LuisIntent("Hi")]
         public async Task Hi(IDialogContext context, LuisResult result)
         {
-            await context.PostAsync("Hi, I am your friendly Home Assistant Bot. I can help you to manage your smart home.");
+            await context.PostAsync($"Hi, I am {Settings.Instance.BotName}. I can help you to manage your smart home.");
             context.Wait(this.MessageReceived);
         }
 
@@ -54,14 +57,30 @@ namespace SimpleEchoBot
         [LuisIntent("Turn On")]
         public async Task TurnOn(IDialogContext context, IAwaitable<IMessageActivity> activity, LuisResult result)
         {
-            await context.PostAsync("You reached the TURN ON intent");
+            if(result.Entities.Count > 0)
+            {
+                string device = GetFirstEntityForType(result, EntityTypes.Device);
+                await context.PostAsync($"You asked to TURN ON the {device}.");
+            }
+            else
+            {
+                await context.PostAsync($"Not sure what to turn on. Please make sure to specify an entity.");
+            }
             context.Wait(this.MessageReceived);
         }
 
         [LuisIntent("Turn Off")]
         public async Task TurnOff(IDialogContext context, IAwaitable<IMessageActivity> activity, LuisResult result)
         {
-            await context.PostAsync("You reached the TURN OFF intent");
+            if (result.Entities.Count > 0)
+            {
+                string device = GetFirstEntityForType(result, EntityTypes.Device);
+                await context.PostAsync($"You asked to TURN OFF the {device}.");
+            }
+            else
+            {
+                await context.PostAsync($"Not sure what to turn off. Please make sure to specify an entity.");
+            }
             context.Wait(this.MessageReceived);
         }
 
@@ -75,10 +94,58 @@ namespace SimpleEchoBot
         [LuisIntent("Get State")]
         public async Task GetState(IDialogContext context, IAwaitable<IMessageActivity> activity, LuisResult result)
         {
-            await context.PostAsync("You reached the GET STATE intent");
+            if (result.Entities.Count > 0)
+            {
+                string room  = GetFirstEntityForType(result, EntityTypes.Room);
+                string device = GetFirstEntityForType(result, EntityTypes.Device);
+
+                await context.PostAsync($"You asked to GET STATE of the {device} in {room}.");
+            }
+            else
+            {
+                await context.PostAsync($"Not sure what entity you want to get the state for. Please make sure to specify an entity.");
+            }
             context.Wait(this.MessageReceived);
         }
 
+        
+
+        [LuisIntent("Set State")]
+        public async Task SetState(IDialogContext context, IAwaitable<IMessageActivity> activity, LuisResult result)
+        {
+            if (result.Entities.Count > 1)
+            {
+                string device = GetFirstEntityForType(result, EntityTypes.Device);
+                string room = GetFirstEntityForType(result, EntityTypes.Room);
+                
+                await context.PostAsync($"You asked to SET STATE of the {device} in {room}.");
+            }
+            else
+            {
+                await context.PostAsync($"Not sure what entity you want to set the state for and to what value. Please make sure to specify an entity and value.");
+            }
+            context.Wait(this.MessageReceived);
+        }
+
+        private string GetFirstEntityForType(LuisResult result, EntityTypes v)
+        {
+            var r = GetEntitiesForType(result, v);
+            if (r.Count() == 0)
+            {
+                return null;
+            }
+            else
+            {
+                return r.FirstOrDefault().Entity;
+            }
+        }
+
+        private static System.Collections.Generic.IEnumerable<EntityRecommendation> GetEntitiesForType(LuisResult result, EntityTypes entityType)
+        {
+            return from ent in result.Entities
+                   where ent.Type == entityType.ToString()
+                   select ent;
+        }
 
         /*public async Task MessageReceivedAsync(IDialogContext context, IAwaitable<IMessageActivity> argument)
         {

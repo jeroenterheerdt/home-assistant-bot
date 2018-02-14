@@ -6,7 +6,7 @@ using Microsoft.Bot.Builder.Dialogs;
 using System.Web.Http.Description;
 using System.Net.Http;
 
-namespace SimpleEchoBot
+namespace HomeAssistantBot
 {
     [BotAuthentication]
     public class MessagesController : ApiController
@@ -22,7 +22,7 @@ namespace SimpleEchoBot
             // check if activity is of type message
             if (activity != null && activity.GetActivityType() == ActivityTypes.Message)
             {
-                await Conversation.SendAsync(activity, () => new EchoDialog());
+                await Conversation.SendAsync(activity, () => new MainDialog());
             }
             else
             {
