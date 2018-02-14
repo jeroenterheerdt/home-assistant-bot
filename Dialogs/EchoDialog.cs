@@ -33,7 +33,21 @@ namespace SimpleEchoBot
         [LuisIntent("None")]
         public async Task None(IDialogContext context, LuisResult result)
         {
+            await context.PostAsync("I'm sorry, I did not understand that. Ask for help to get help.");
+            context.Wait(this.MessageReceived);
+        }
+
+        [LuisIntent("Hi")]
+        public async Task Hi(IDialogContext context, LuisResult result)
+        {
             await context.PostAsync("Hi, I am your friendly Home Assistant Bot. You can say things like 'turn on living room lights'.");
+            context.Wait(this.MessageReceived);
+        }
+
+        [LuisIntent("Help")]
+        public async Task Help(IDialogContext context, LuisResult result)
+        {
+            await context.PostAsync("Need help? Here is an idea: you can say things like 'turn on living room lights'.");
             context.Wait(this.MessageReceived);
         }
 
