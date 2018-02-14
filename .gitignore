@@ -4,3 +4,5 @@ packages/
 *.pubxml.user
 *.csproj.user
 .vs/
+
+Settings.custom.cs

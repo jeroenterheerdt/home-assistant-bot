@@ -46,8 +46,16 @@ namespace Microsoft.Bot.Sample.SimpleEchoBot
             }
             else if (text == "get entities")
             {
-                var services = await _homeAssistant.GetEntities();
-                responseText = "Get services was successful";
+                var entities = await _homeAssistant.GetEntities();
+                responseText = "Get services was successful\n\n";
+                foreach(var entity in entities)
+                {
+                    responseText += $"- {entity.Domain}\n\n";
+                    foreach(var feature in entity.Features)
+                    {
+                        responseText += $" \t- {feature.Name}\n\n";
+                    }
+                }
             }
             else if (text == "turn on")
             {
