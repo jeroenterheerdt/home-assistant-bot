@@ -5,6 +5,6 @@ packages/
 *.csproj.user
 .vs/
 Settings.blank.cs
-homeassistantbot.PublishSettings
-home-assistant-bot.PublishSettings
-*.config
+*.PublishSettings
+Properties/PublishProfiles/home-assistant-bot - Web Deploy.pubxml
+Web.config
