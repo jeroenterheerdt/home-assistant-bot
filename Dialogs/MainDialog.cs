@@ -8,28 +8,34 @@ using HomeAssistantBot.Logic;
 using Microsoft.Bot.Builder.Luis;
 using System.Linq;
 using System.Collections.Generic;
+using Autofac;
+using System.Configuration;
+using Microsoft.Bot.Builder.Internals.Fibers;
+using System.Web.Configuration;
+using System.Threading;
 
 namespace HomeAssistantBot
 {
     [Serializable]
-    [LuisModel(Settings.LuisAppId, Settings.LuisAPIKey)]
-    public class MainDialog : LuisDialog<object>
+    public class MainDialog : IDialog<object>
     {
         protected int count = 1;
-
-        string LuisModelUrl = "https://" + Settings.Instance.LuisAPIHostName + "/luis/v1/application?id=" + Settings.LuisAppId + "&subscription-key=" + Settings.LuisAPIKey;
+        //string LuisModelUrl = "https://" + Settings.Instance.LuisAPIHostName + "/luis/v1/application?id=" + Settings.LuisAppId + "&subscription-key=" + Settings.LuisAPIKey;
         enum EntityTypes { Room, Device};
+        LuisService luis;
 
-        //public async Task StartAsync(IDialogContext context)
-        //{
-            
-        //    //context.Wait(MessageReceivedAsync);
+        public async Task StartAsync(IDialogContext context)
+        {
+            luis = new LuisService(
+                new LuisModelAttribute(
+                    Settings.Instance.LuisAppId,
+                    Settings.Instance.LuisSubscriptionKey,
+                    LuisApiVersion.V2,
+                    domain: Settings.Instance.LuisAPIHostName
+                    ));
 
-        //    if (_homeAssistant == null)
-        //    {
-        //        _homeAssistant = new HomeAssistantService();
-        //    }
-        //}
+            context.Wait(MessageReceivedAsync);
+        }
 
         private HomeAssistantService _homeAssistant;
         private HomeAssistantService HomeAssistant
@@ -44,98 +50,13 @@ namespace HomeAssistantBot
             }
         }
 
-        [LuisIntent("")]
-        [LuisIntent("None")]
-        public async Task None(IDialogContext context, LuisResult result)
+        private static IMessageActivity MakeMessage(IDialogContext context, string speak, string text)
         {
-            await context.PostAsync("I'm sorry, I did not understand that. Ask for help to get help.");
-            context.Wait(this.MessageReceived);
-        }
-
-        [LuisIntent("Hi")]
-        public async Task Hi(IDialogContext context, LuisResult result)
-        {
-            await context.PostAsync($"Hi, I am {Settings.Instance.BotName}. I can help you to manage your smart home.");
-            context.Wait(this.MessageReceived);
-        }
-
-        [LuisIntent("Help")]
-        public async Task Help(IDialogContext context, LuisResult result)
-        {
-            await context.PostAsync("Need help? Here is an idea: you can say things like 'turn on living room lights'.");
-            context.Wait(this.MessageReceived);
-        }
-
-        [LuisIntent("Turn On")]
-        public async Task TurnOn(IDialogContext context, IAwaitable<IMessageActivity> activity, LuisResult result)
-        {
-            HomeAssistant.AllLightsOn();
-
-            await context.PostAsync("You reached the TURN ON intent");
-            context.Wait(this.MessageReceived);
-        }
-
-        [LuisIntent("Turn Off")]
-        public async Task TurnOff(IDialogContext context, IAwaitable<IMessageActivity> activity, LuisResult result)
-        {
-            HomeAssistant.AllLightsOff();
-
-            await context.PostAsync("You reached the TURN OFF intent");
-            context.Wait(this.MessageReceived);
-        }
-
-        [LuisIntent("Get Entities")]
-        public async Task GetEntities(IDialogContext context, IAwaitable<IMessageActivity> activity, LuisResult result)
-        {
-            var entities = await HomeAssistant.GetDomains();
-            string responseText = "Get services was successful\n\n";
-            foreach (var entity in entities)
-            {
-                responseText += $"- {entity.Domain}\n\n";
-                foreach (var feature in entity.Features)
-                {
-                    responseText += $" \t- {feature.Name}\n\n";
-                }
-            }
-
-            await context.PostAsync(responseText);
-            context.Wait(this.MessageReceived);
-        }
-
-        [LuisIntent("Get State")]
-        public async Task GetState(IDialogContext context, IAwaitable<IMessageActivity> activity, LuisResult result)
-        {
-            if (result.Entities.Count > 0)
-            {
-                string room  = GetFirstEntityForType(result, EntityTypes.Room);
-                string device = GetFirstEntityForType(result, EntityTypes.Device);
-
-                await context.PostAsync($"You asked to GET STATE of the {device} in {room}.");
-            }
-            else
-            {
-                await context.PostAsync($"Not sure what entity you want to get the state for. Please make sure to specify an entity.");
-            }
-            context.Wait(this.MessageReceived);
-        }
-
-        
-
-        [LuisIntent("Set State")]
-        public async Task SetState(IDialogContext context, IAwaitable<IMessageActivity> activity, LuisResult result)
-        {
-            if (result.Entities.Count > 1)
-            {
-                string device = GetFirstEntityForType(result, EntityTypes.Device);
-                string room = GetFirstEntityForType(result, EntityTypes.Room);
-                
-                await context.PostAsync($"You asked to SET STATE of the {device} in {room}.");
-            }
-            else
-            {
-                await context.PostAsync($"Not sure what entity you want to set the state for and to what value. Please make sure to specify an entity and value.");
-            }
-            context.Wait(this.MessageReceived);
+            var act = context.MakeMessage();
+            act.Speak = speak;
+            act.Text = text;
+            //act.InputHint = InputHints.AcceptingInput;
+            return act;
         }
 
         private string GetFirstEntityForType(LuisResult result, EntityTypes v)
@@ -156,79 +77,74 @@ namespace HomeAssistantBot
             return from ent in result.Entities
                    where ent.Type == entityType.ToString()
                    select ent;
+
         }
 
-        /*public async Task MessageReceivedAsync(IDialogContext context, IAwaitable<IMessageActivity> argument)
+        public async Task MessageReceivedAsync(IDialogContext context, IAwaitable<IMessageActivity> argument)
         {
             var message = await argument;
+            var luisResult = await luis.QueryAsync(message.Text, CancellationToken.None);
 
-            string text = message.Text.ToLower();
-
-            string responseText = "";
-
-            if (text == "get state")
+            switch (luisResult.TopScoringIntent.Intent)
             {
-                string result = await _homeAssistant.GetStates();
-
-                responseText = $"states: {result}";
-                
-            }
-            else if (text == "get services")
-            {
-                var services = await _homeAssistant.GetServices();
-                responseText = "Get services was successful";   
-            }
-            else if (text == "get entities")
-            {
-                var entities = await _homeAssistant.GetEntities();
-                responseText = "Get services was successful\n\n";
-                foreach(var entity in entities)
-                {
-                    responseText += $"- {entity.Domain}\n\n";
-                    foreach(var feature in entity.Features)
+                case "Turn On":
+                    await HomeAssistant.AllLightsOn();
+                    string msg = "I turned on all the lights.";
+                    await context.PostAsync(MakeMessage(context, msg, msg));
+                    break;
+                case "Turn Off":
+                    await HomeAssistant.AllLightsOff();
+                    string msg2 = "I turned off all the lights.";
+                    await context.PostAsync(MakeMessage(context, msg2, msg2));
+                    break;
+                case "Hi":
+                    string msg3 = $"Hi, I am { Settings.Instance.BotName}. I can help you to manage your smart home.";
+                    await context.PostAsync(MakeMessage(context, msg3, msg3));
+                    break;
+                case "Get Entities":
+                    var entities = await HomeAssistant.GetDomains();
+                    string responseText = "Get services was successful\n\n";
+                    foreach (var entity in entities)
                     {
-                        responseText += $" \t- {feature.Name}\n\n";
+                        responseText += $"- {entity.Domain}\n\n";
+                        foreach (var feature in entity.Features)
+                        {
+                            responseText += $" \t- {feature.Name}\n\n";
+                        }
                     }
-                }
-            }
-            else if (text == "turn on")
-            {
-                _homeAssistant.TurnOnAllLight();
-                responseText = "Hopefully all lights are on now";
-            }
-            else if (text == "reset")
-            {
-                PromptDialog.Confirm(
-                    context,
-                    AfterResetAsync,
-                    "Are you sure you want to reset the count?",
-                    "Didn't get that!",
-                    promptStyle: PromptStyle.Auto);
-                return;
-            }
-            else
-            {
-                responseText = $"{this.count++}: You said {message.Text}";
-            }
+                    await context.PostAsync(responseText);
+                    break;
+                case "Get State":
+                    if (luisResult.Entities.Count > 0)
+                    {
+                        string room = GetFirstEntityForType(luisResult, EntityTypes.Room);
+                        string device = GetFirstEntityForType(luisResult, EntityTypes.Device);
 
-            await context.PostAsync(responseText);
+                        await context.PostAsync($"You asked to GET STATE of the {device} in {room}.");
+                    }
+                    else
+                    {
+                        await context.PostAsync($"Not sure what entity you want to get the state for. Please make sure to specify an entity.");
+                    }
+                    break;
+                case "Set State":
+                    if (luisResult.Entities.Count > 1)
+                    {
+                        string device = GetFirstEntityForType(luisResult, EntityTypes.Device);
+                        string room = GetFirstEntityForType(luisResult, EntityTypes.Room);
+
+                        await context.PostAsync($"You asked to SET STATE of the {device} in {room}.");
+                    }
+                    else
+                    {
+                        await context.PostAsync($"Not sure what entity you want to set the state for and to what value. Please make sure to specify an entity and value.");
+                    }
+                    break;
+                default:
+                    await context.PostAsync(MakeMessage(context, "I'm sorry, I did not get that.", "I'm sorry, I did not understand that. Ask for help to get help."));
+                    break;
+            }
             context.Wait(MessageReceivedAsync);
         }
-        */
-        public async Task AfterResetAsync(IDialogContext context, IAwaitable<bool> argument)
-        {
-            var confirm = await argument;
-            if (confirm)
-            {
-                this.count = 1;
-                await context.PostAsync("Reset count.");
-            }
-            else
-            {
-                await context.PostAsync("Did not reset count.");
-            }
-            //context.Wait(MessageReceivedAsync);
-        }
-
     }
 }

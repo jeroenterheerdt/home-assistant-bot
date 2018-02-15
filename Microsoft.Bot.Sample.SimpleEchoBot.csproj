@@ -178,18 +178,20 @@
     <Compile Include="Models\HomeAssistentDomain.cs" />
     <Compile Include="Models\HomeAssistentDomainFeature.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Settings.custom.cs" />
+    <Compile Include="Settings.blank.cs" />
     <Compile Include="Settings.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
     <Content Include="SampleData\services.json" />
     <Content Include="SampleData\States.json" />
+    <None Include="Properties\PublishProfiles\home-assistant-bot - Web Deploy.pubxml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
     <None Include="Web.Release.config">
       <DependentUpon>Web.config</DependentUpon>
+      <SubType>Designer</SubType>
     </None>
   </ItemGroup>
   <ItemGroup />

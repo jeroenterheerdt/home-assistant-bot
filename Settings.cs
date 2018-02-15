@@ -34,6 +34,9 @@ namespace HomeAssistantBot
         public string BotName { get; set; }
         public string BaseApiUrl { get; set; }
         public string LuisAPIHostName { get; set; }
+        public string LuisSubscriptionKey { get; set; }
+        public string LuisAppId { get; set; }
+        public string HomeAssistantPassword { get; set; }
 
         private static Settings _settings;
         public static Settings Instance

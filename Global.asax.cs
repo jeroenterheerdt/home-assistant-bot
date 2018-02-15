@@ -21,7 +21,7 @@ namespace HomeAssistantBot
                 builder =>
                 {
                     builder.RegisterModule(new AzureModule(Assembly.GetExecutingAssembly()));
-
+                    //builder.RegisterModule<MainModule>();
                     // Using Azure Table Storage
                     //var store = new TableBotDataStore(ConfigurationManager.AppSettings["AzureWebJobsStorage"]); // requires Microsoft.BotBuilder.Azure Nuget package 
 

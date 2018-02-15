@@ -121,7 +121,9 @@ namespace HomeAssistantBot.Logic
         private async Task<string> Get(string url)
         {
             HttpClient httpClient = new HttpClient();
+            httpClient.DefaultRequestHeaders.Add("x-ha-access", Settings.Instance.HomeAssistantPassword);
             var response = await httpClient.GetAsync(url);
+
             string resultAsText = await response.Content.ReadAsStringAsync();
             return resultAsText;
         }
@@ -139,28 +141,31 @@ namespace HomeAssistantBot.Logic
             }
         }
 
-        async internal void AllLightsOn()
+        async internal Task AllLightsOn()
         {
             var entities = await GetEntities();
-            foreach (var entity in entities)
-            {
-                if (entity.EntityId.StartsWith("light."))
-                {
-                    await TurnLightOn(entity.EntityId);
-                }
-            }
+            await TurnLightOn("light.hue_color_lamp_2");
+            //foreach (var entity in entities)
+            //{
+            //    if (entity.EntityId.StartsWith("light."))
+            //    {
+            //        await TurnLightOn(entity.EntityId);
+            //    }
+            //}
         }
 
-        async internal void AllLightsOff()
+        async internal Task AllLightsOff()
         {
             var entities = await GetEntities();
-            foreach (var entity in entities)
-            {
-                if (entity.EntityId.StartsWith("light."))
-                {
-                    await TurnLightOff(entity.EntityId);
-                }
-            }
+            await TurnLightOff("light.hue_color_lamp_2");
+            //foreach (var entity in entities)
+            //{
+            //    if (entity.EntityId.StartsWith("light."))
+            //    {
+            //        await TurnLightOff(entity.EntityId);
+            //    }
+                
+            //}
         }
 
         internal async Task<bool> ToggleLight(string entityId)
@@ -202,6 +207,7 @@ namespace HomeAssistantBot.Logic
 
                 var httpWebRequest = (HttpWebRequest)WebRequest.Create(url);
                 httpWebRequest.ContentType = "application/json; charset=utf-8";
+                httpWebRequest.Headers.Add("x-ha-access",Settings.Instance.HomeAssistantPassword);
                 httpWebRequest.Method = "POST";
                 httpWebRequest.Accept = "application/json; charset=utf-8";
 
