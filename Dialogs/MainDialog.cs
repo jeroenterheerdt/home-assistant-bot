@@ -55,7 +55,7 @@ namespace HomeAssistantBot
             var act = context.MakeMessage();
             act.Speak = speak;
             act.Text = text;
-            //act.InputHint = InputHints.AcceptingInput;
+            act.InputHint = InputHints.AcceptingInput;
             return act;
         }
 
@@ -139,6 +139,9 @@ namespace HomeAssistantBot
                     {
                         await context.PostAsync($"Not sure what entity you want to set the state for and to what value. Please make sure to specify an entity and value.");
                     }
+                    break;
+                case "Help":
+                    await context.PostAsync(MakeMessage(context, "Here are some ideas", "You could say: 'turn on the lights' or 'what is the outdoor temperature'."));
                     break;
                 default:
                     await context.PostAsync(MakeMessage(context, "I'm sorry, I did not get that.", "I'm sorry, I did not understand that. Ask for help to get help."));
